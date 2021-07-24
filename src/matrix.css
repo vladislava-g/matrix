@@ -1,0 +1,123 @@
+
+.average-label{
+    font-family: 'Amatic SC', cursive;
+    font-size: 24px;
+    text-align: start;
+    margin-left: 40px;
+    margin-top: 3px;
+}
+
+.sum-label{
+    font-family: 'Amatic SC', cursive;
+    font-size: 24px;
+    transform: rotate(90deg);
+    height: 0px;
+    margin-top: 60px;
+    margin-left: -25px;
+}
+
+.main-div{
+    display: flex;
+}
+
+.matrix-field{
+    border: 1px solid white;
+    padding: 10px 10px;
+    user-select: none;
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .matrix-sum-field{
+    background-color: #5858583f;
+    transition: .2s ease-in-out;
+  }
+  
+  .matrix-field:hover{
+    box-shadow: 0px 0px 15px #fff;
+    cursor: pointer; 
+  }
+  
+  .matrix-sum-field:hover{
+    box-shadow: 0px 0px 0px #fff;
+    cursor: pointer;
+    background-color: #72727236;
+    
+  }
+  
+  .remove-btn div{
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    opacity: .3;
+    transition: .2s ease-in-out;
+  }
+  
+  .remove-btn div:hover{
+    cursor: pointer;
+    color: rgb(185, 48, 48);
+    opacity: .7;
+  }
+  
+  .field-highlight{
+    background-color: #6fba82;
+    transition: .2s ease-in-out;
+  }
+  .field-highlight:nth-child(1){
+    background-color: #5073b8;
+  }
+  .field-highlight:nth-child(2){
+    background-color: #1098ad;
+  }
+  .field-highlight:nth-child(3){
+    background-color: #07b39b;
+  }
+  .field-highlight:nth-child(4){
+    background-color: #417cc0;
+  }
+  .field-highlight:nth-child(5){
+    background-color: #07b354;
+  }
+  
+  /* percentage */
+  
+  .matrix-field-10{
+    background: linear-gradient(to top, #9df5b3 10%,#1D1F20 10%);
+  }
+  
+  .matrix-field-20{
+    background: linear-gradient(to top, #5b75a8 20%,#1D1F20 20%);
+  }
+  
+  .matrix-field-30{
+    background: linear-gradient(to top, #1098ad 30%,#1D1F20 30%);
+  }
+  
+  .matrix-field-40{
+    background: linear-gradient(to top, #87dfeb 40%,#1D1F20 40%);
+  }
+  
+  .matrix-field-50{
+    background: linear-gradient(to top, #10ad86 50%,#1D1F20 50%);
+  }
+  
+  .matrix-field-60{
+    background: linear-gradient(to top, #438d59 60%,#1D1F20 60%);
+  }
+  
+  .matrix-field-70{
+    background: linear-gradient(to top, #296196 70%,#1D1F20 70%);
+  }
+  
+  .matrix-field-80{
+    background: linear-gradient(to top, #7fcf5f 80%,#1D1F20 80%);
+  }
+  
+  .matrix-field-90{
+    background: linear-gradient(to top, #0b7e6e 90%,#1D1F20 90%);
+  }
+  
+  .matrix-field-100{
+    background: linear-gradient(to top, #7fcf5f 100%,#1D1F20 100%);
+  }
+  

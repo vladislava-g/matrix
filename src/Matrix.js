@@ -1,27 +1,16 @@
 import React from "react";
+import './matrix.css';
 
 class Matrix extends React.Component {
 
     constructor(props) {
         super(props)
 
-        var data = [];
-        var index = 0;
-
-        for(let i = 0; i < props.location.state.rows; i++){
-            var temp_array = [];
-            for(let j = 0; j < props.location.state.cols; j++){
-                temp_array.push({id: index++, amount: Math.floor(Math.random()*(999-100+1)+100)})
-            }
-            data.push({id: i, array: temp_array})
-        }
-
         this.state = {
             highlight: props.location.state.highlight,
             cols: props.location.state.cols,
-            data: data,
+            data: this.initMatrix(props.location.state.rows, props.location.state.cols),
             highlightedNumbers: [],
-
             selectedRowPercentage: -1
         }
 
@@ -30,6 +19,21 @@ class Matrix extends React.Component {
         this.highlightNumbers = this.highlightNumbers.bind(this);
         this.addRow = this.addRow.bind(this);
         this.removeRow = this.removeRow.bind(this);
+    }
+
+    initMatrix(rows, cols){
+        var data = [];
+        var index = 0;
+
+        for(let i = 0; i < rows; i++){
+            var temp_array = [];
+            for(let j = 0; j < cols; j++){
+                temp_array.push({id: index++, amount: Math.floor(Math.random()*(999-100+1)+100)})
+            }
+            data.push({id: i, array: temp_array})
+        }
+
+        return data;
     }
 
     increaseAmount(arrayId, itemId){
@@ -59,12 +63,15 @@ class Matrix extends React.Component {
 
         numbers = numbers.filter(x => x.id != event.target.getAttribute('field-id'));   
         for(let i = 0; i < this.state.highlight; i++){
+            if(numbers.length == 0){
+                break;
+            }  
             var closest = numbers.reduce((a, b) => {
                 return Math.abs(b?.amount - currentNumber) < Math.abs(a?.amount - currentNumber) ? b : a;
             });
 
             closestNumbers.push(closest);
-            numbers = numbers.filter(x => x != closest);            
+            numbers = numbers.filter(x => x != closest);          
         }
 
         this.setState({
@@ -114,7 +121,8 @@ class Matrix extends React.Component {
         }
 
         return (
-          <div>
+          <div className="main-div">
+            <div>
             <table id="matrix-table">
               <tbody>
                 {this.state.data.map((array) => (
@@ -124,22 +132,22 @@ class Matrix extends React.Component {
                     </th>
                         {this.state.selectedRowPercentage == array.id ? 
                             array.array.map((item) => (
-                               <th key={item.id}
+                                <th key={item.id}
                                 className={"matrix-field matrix-field-"+this.getPercentageStyle(this.getPercentage(item.amount, array.array))}
-                               > {this.getPercentage(item.amount, array.array)}% </th>
-                        ))
-                        :
-                         array.array.map((item) => (
-                            <th key={item.id}
-                                field-id={item.id}
-                                className={this.state.highlightedNumbers.includes(item.id) ? "matrix-field field-highlight" : "matrix-field"}
-                                onMouseOver={this.highlightNumbers}
-                                onMouseLeave={() => { this.setState({
-                                    highlightedNumbers: []
-                                })}}
-                                onClick={() => this.increaseAmount(array.id, item.id)}
-                            > {item.amount} </th>
-                        ))}
+                                > {this.getPercentage(item.amount, array.array)}% </th>
+                                ))
+                                :
+                                array.array.map((item) => (
+                                    <th key={item.id}
+                                    field-id={item.id}
+                                    className={this.state.highlightedNumbers.includes(item.id) ? "matrix-field field-highlight" : "matrix-field"}
+                                    onMouseOver={this.highlightNumbers}
+                                    onMouseLeave={() => { this.setState({
+                                        highlightedNumbers: []
+                                    })}}
+                                    onClick={() => this.increaseAmount(array.id, item.id)}
+                                    > {item.amount} </th>
+                                    ))}
                         {/* row sum */}
                         <th className="matrix-field matrix-sum-field"
                             onMouseOver={() => this.setState({
@@ -148,7 +156,7 @@ class Matrix extends React.Component {
                             onMouseLeave={() => this.setState({
                                 selectedRowPercentage: -1 
                             })}
-                        > {array.array.map(num => num.amount).reduce((a, b) => a + b, 0)} </th>
+                            > {array.array.map(num => num.amount).reduce((a, b) => a + b, 0)} </th>
                     </tr>
                 ))}
 
@@ -157,13 +165,16 @@ class Matrix extends React.Component {
                     <th className=""></th>
                     {average.map((item, key) => (
                         <th key={key} className="matrix-field matrix-sum-field"> {item} </th>
-                    ))}
+                        ))}
                     <th className="matrix-field matrix-sum-field"
                         onClick={this.addRow}
-                    > Add </th>
+                        > Add </th>
                 </tr>
               </tbody>
             </table>
+            <p className="average-label">Column Average </p>
+            </div>
+            <p className="sum-label">Row Summation </p>
           </div>
         );
     }

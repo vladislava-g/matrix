@@ -15,6 +15,7 @@ class Home extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.increaseValue = this.increaseValue.bind(this);
         this.decreaseValue = this.decreaseValue.bind(this);
+        this.checkInput = this.checkInput.bind(this);
     }
 
     handleChange(event) {
@@ -35,7 +36,18 @@ class Home extends React.Component {
             this.setState({
                 [event.target.name]: this.state[event.target.name] - 1
             });
+          }
         }
+
+
+    checkInput(event){
+      console.log(event.target.value);
+      console.log(event.target.name);
+      if(event.target.value == 0){
+        this.setState({
+          [event.target.name]: 1
+        });
+      }
     }
 
     render() {
@@ -51,6 +63,7 @@ class Home extends React.Component {
                     type="number"
                     onChange={this.handleChange}
                     name="rows"
+                    onBlur={this.checkInput}
                     value={this.state.rows} />
                   <button name="rows" onClick={this.decreaseValue}>-</button>
                 </div>
@@ -63,6 +76,7 @@ class Home extends React.Component {
                    type="number"
                    onChange={this.handleChange}
                    name="cols"
+                   onBlur={this.checkInput}
                    value={this.state.cols} />
                   <button name="cols" onClick={this.decreaseValue}>-</button>
                 </div>
@@ -75,6 +89,7 @@ class Home extends React.Component {
                    type="number"
                    onChange={this.handleChange}
                    name="highlight"
+                   onBlur={this.checkInput}
                    value={this.state.highlight} />
                   <button name="highlight" onClick={this.decreaseValue}>-</button>
                 </div>
