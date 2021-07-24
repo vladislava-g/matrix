@@ -20,7 +20,9 @@ class Matrix extends React.Component {
             highlight: props.location.state.highlight,
             cols: props.location.state.cols,
             data: data,
-            highlightedNumbers: []
+            highlightedNumbers: [],
+
+            selectedRowPercentage: -1
         }
 
         this.increaseAmount = this.increaseAmount.bind(this);
@@ -97,6 +99,14 @@ class Matrix extends React.Component {
         }
     }
 
+    getPercentage(partialValue, array) {
+        return ((100 * partialValue) / array.map(num => num.amount).reduce((a, b) => a + b, 0)).toFixed(1);
+    } 
+
+    getPercentageStyle(percentage){
+        return Math.ceil(percentage / 10) * 10;
+    }
+
     render() {
         var average = [];
         for(let i = 0; i < this.state.data[0].array.length; i++){
@@ -112,7 +122,14 @@ class Matrix extends React.Component {
                     <th className="remove-btn">
                         <div onClick={this.removeRow} array-id={array.id}> ⌧ </div>
                     </th>
-                        {array.array.map((item) => (
+                        {this.state.selectedRowPercentage == array.id ? 
+                            array.array.map((item) => (
+                               <th key={item.id}
+                                className={"matrix-field matrix-field-"+this.getPercentageStyle(this.getPercentage(item.amount, array.array))}
+                               > {this.getPercentage(item.amount, array.array)}% </th>
+                        ))
+                        :
+                         array.array.map((item) => (
                             <th key={item.id}
                                 field-id={item.id}
                                 className={this.state.highlightedNumbers.includes(item.id) ? "matrix-field field-highlight" : "matrix-field"}
@@ -125,6 +142,12 @@ class Matrix extends React.Component {
                         ))}
                         {/* row sum */}
                         <th className="matrix-field matrix-sum-field"
+                            onMouseOver={() => this.setState({
+                                selectedRowPercentage: array.id 
+                            })}
+                            onMouseLeave={() => this.setState({
+                                selectedRowPercentage: -1 
+                            })}
                         > {array.array.map(num => num.amount).reduce((a, b) => a + b, 0)} </th>
                     </tr>
                 ))}

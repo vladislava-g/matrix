@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin-top: 50px;
 }
 
 .App-logo {
@@ -45,24 +46,21 @@ body {
   color: white;
 }
 
+html, body{
+  height:auto !important;
+}
+
 .matrix-field{
   border: 1px solid white;
   padding: 10px 10px;
   user-select: none;
-  width: 50px;
-  height: 50px;
+  width: 60px !important;
+  height: 60px !important;
 }
 
 .matrix-sum-field{
   background-color: #5858581c;
   transition: .2s ease-in-out;
-}
-
-#matrix-table{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
 }
 
 .matrix-field:hover{
@@ -111,12 +109,40 @@ body {
   background-color: #07b354;
 }
 
-/* .rainbow-box {
-  background-color: #302244;
-  border: 5px solid transparent;
-  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-  border-image-slice: 1;
-  height: 200px;
-  margin: 20px auto;
-  width: 200px;
-} */
+/* percentage */
+
+.matrix-field-10{
+  background: linear-gradient(to top, #9df5b3 10%,#1D1F20 10%);
+}
+
+.matrix-field-20{
+  background: linear-gradient(to top, #5b75a8 20%,#1D1F20 20%);
+}
+
+.matrix-field-30{
+  background: linear-gradient(to top, #1098ad 30%,#1D1F20 30%);
+}
+
+.matrix-field-40{
+  background: linear-gradient(to top, #87dfeb 40%,#1D1F20 40%);
+}
+
+.matrix-field-50{
+  background: linear-gradient(to top, #10ad86 50%,#1D1F20 50%);
+}
+
+.matrix-field-60{
+  background: linear-gradient(to top, #438d59 60%,#1D1F20 60%);
+}
+
+.matrix-field-70{
+  background: linear-gradient(to top, #296196 70%,#1D1F20 70%);
+}
+
+.matrix-field-80{
+  background: linear-gradient(to top, #7fcf5f 80%,#1D1F20 80%);
+}
+
+.matrix-field-90{
+  background: linear-gradient(to top, #0b7e6e 90%,#1D1F20 90%);
+}
