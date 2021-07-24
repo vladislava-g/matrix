@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+/*------------------custom*/
+
+body {
+  height: 100%;
+  background: #1D1F20;
+  color: white;
+}
+
+.matrix-field{
+  border: 1px solid white;
+  padding: 10px 10px;
+  user-select: none;
+  width: 50px;
+  height: 50px;
+}
+
+.matrix-sum-field{
+  background-color: #5858581c;
+  transition: .2s ease-in-out;
+}
+
+#matrix-table{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.matrix-field:hover{
+  box-shadow: 0px 0px 5px #fff;
+  cursor: pointer; 
+}
+
+.matrix-sum-field:hover{
+  box-shadow: 0px 0px 0px #fff;
+  cursor: pointer;
+  background-color: #72727236;
+  
+}
+
+/* .rainbow-box {
+  background-color: #302244;
+  border: 5px solid transparent;
+  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  border-image-slice: 1;
+  height: 200px;
+  margin: 20px auto;
+  width: 200px;
+} */
