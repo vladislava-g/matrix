@@ -22,6 +22,7 @@ class Matrix extends React.Component {
         }
 
         this.increaseAmount = this.increaseAmount.bind(this);
+        this.getColumnAverage = this.getColumnAverage.bind(this);
     }
 
     increaseAmount(arrayId, itemId){
@@ -35,7 +36,18 @@ class Matrix extends React.Component {
         })
     }
 
+    getColumnAverage(index) {
+        var column = this.state.data.map(e => e.array[index]);
+        var sum = column.map(num => num?.amount).reduce((a, b) => a + b, 0);
+        return Math.floor(sum / this.state.data.length);
+    } 
+
     render() {
+        var average = [];
+        for(let i = 0; i < this.state.data[0].array.length; i++){
+            average.push(this.getColumnAverage(i));
+        }
+
         return (
           <div>
             <table id="matrix-table">
@@ -48,10 +60,19 @@ class Matrix extends React.Component {
                                 onClick={() => this.increaseAmount(array.id, item.id)}
                             > {item.amount} </th>
                         ))}
+                        {/* row sum */}
                         <th className="matrix-field matrix-sum-field"
                         > {array.array.map(num => num.amount).reduce((a, b) => a + b, 0)} </th>
                     </tr>
                 ))}
+
+                {/* average */}
+                <tr> 
+                    {average.map((item, key) => (
+                        <th key={key} className="matrix-field matrix-sum-field"> {item} </th>
+                    ))}
+                    <th className="matrix-field matrix-sum-field"> Add </th>
+                </tr>
               </tbody>
             </table>
           </div>
