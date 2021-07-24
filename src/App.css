@@ -66,7 +66,7 @@ body {
 }
 
 .matrix-field:hover{
-  box-shadow: 0px 0px 5px #fff;
+  box-shadow: 0px 0px 15px #fff;
   cursor: pointer; 
 }
 
@@ -75,6 +75,26 @@ body {
   cursor: pointer;
   background-color: #72727236;
   
+}
+
+.field-highlight{
+  background-color: #6fba82;
+  transition: .2s ease-in-out;
+}
+.field-highlight:nth-child(1){
+  background-color: #5073b8;
+}
+.field-highlight:nth-child(2){
+  background-color: #1098ad;
+}
+.field-highlight:nth-child(3){
+  background-color: #07b39b;
+}
+.field-highlight:nth-child(4){
+  background-color: #417cc0;
+}
+.field-highlight:nth-child(5){
+  background-color: #07b354;
 }
 
 /* .rainbow-box {

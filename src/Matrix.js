@@ -19,10 +19,12 @@ class Matrix extends React.Component {
         this.state = {
             highlight: props.location.state.highlight,
             data: data,
+            highlightedNumbers: []
         }
 
         this.increaseAmount = this.increaseAmount.bind(this);
         this.getColumnAverage = this.getColumnAverage.bind(this);
+        this.highlightNumbers = this.highlightNumbers.bind(this);
     }
 
     increaseAmount(arrayId, itemId){
@@ -42,6 +44,29 @@ class Matrix extends React.Component {
         return Math.floor(sum / this.state.data.length);
     } 
 
+    highlightNumbers(event){
+        var currentNumber = event.target.innerText;
+        var closestNumbers = [];
+        var numbers = [];
+        this.state.data.map(x => {
+            numbers = numbers.concat(x.array);
+        });
+
+        numbers = numbers.filter(x => x.id != event.target.getAttribute('field-id'));   
+        for(let i = 0; i < this.state.highlight; i++){
+            var closest = numbers.reduce((a, b) => {
+                return Math.abs(b?.amount - currentNumber) < Math.abs(a?.amount - currentNumber) ? b : a;
+            });
+
+            closestNumbers.push(closest);
+            numbers = numbers.filter(x => x != closest);            
+        }
+
+        this.setState({
+            highlightedNumbers: closestNumbers.map(x => x.id)
+        })
+    }
+
     render() {
         var average = [];
         for(let i = 0; i < this.state.data[0].array.length; i++){
@@ -56,7 +81,12 @@ class Matrix extends React.Component {
                     <tr key={array.id}> 
                         {array.array.map((item) => (
                             <th key={item.id}
-                                className="matrix-field"
+                                field-id={item.id}
+                                className={this.state.highlightedNumbers.includes(item.id) ? "matrix-field field-highlight" : "matrix-field"}
+                                onMouseOver={this.highlightNumbers}
+                                onMouseLeave={() => { this.setState({
+                                    highlightedNumbers: []
+                                })}}
                                 onClick={() => this.increaseAmount(array.id, item.id)}
                             > {item.amount} </th>
                         ))}
