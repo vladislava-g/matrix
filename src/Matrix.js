@@ -18,6 +18,7 @@ class Matrix extends React.Component {
 
         this.state = {
             highlight: props.location.state.highlight,
+            cols: props.location.state.cols,
             data: data,
             highlightedNumbers: []
         }
@@ -25,6 +26,8 @@ class Matrix extends React.Component {
         this.increaseAmount = this.increaseAmount.bind(this);
         this.getColumnAverage = this.getColumnAverage.bind(this);
         this.highlightNumbers = this.highlightNumbers.bind(this);
+        this.addRow = this.addRow.bind(this);
+        this.removeRow = this.removeRow.bind(this);
     }
 
     increaseAmount(arrayId, itemId){
@@ -67,6 +70,33 @@ class Matrix extends React.Component {
         })
     }
 
+    addRow(){
+        var index = this.state.data[this.state.data.length - 1].array[this.state.data[this.state.data.length - 1].array.length - 1].id + 1;
+        var arrayIndex = this.state.data[this.state.data.length - 1].id + 1;
+        var new_data = this.state.data;
+        var new_array = [];
+        for(let j = 0; j < this.state.cols; j++){
+            new_array.push({id: index++, amount: Math.floor(Math.random()*(999-100+1)+100)})
+        }
+
+        new_data.push({id: arrayIndex, array: new_array});
+        this.setState({
+            data: new_data
+        })
+    }
+
+    removeRow(event){
+        var id = event.target.getAttribute('array-id');
+        var array = this.state.data.filter(x => x.id != id);
+        this.setState({
+            data: array
+        })
+
+        if(array.length == 0){
+            this.props.history.push('/')
+        }
+    }
+
     render() {
         var average = [];
         for(let i = 0; i < this.state.data[0].array.length; i++){
@@ -79,6 +109,9 @@ class Matrix extends React.Component {
               <tbody>
                 {this.state.data.map((array) => (
                     <tr key={array.id}> 
+                    <th className="remove-btn">
+                        <div onClick={this.removeRow} array-id={array.id}> ⌧ </div>
+                    </th>
                         {array.array.map((item) => (
                             <th key={item.id}
                                 field-id={item.id}
@@ -98,10 +131,13 @@ class Matrix extends React.Component {
 
                 {/* average */}
                 <tr> 
+                    <th className=""></th>
                     {average.map((item, key) => (
                         <th key={key} className="matrix-field matrix-sum-field"> {item} </th>
                     ))}
-                    <th className="matrix-field matrix-sum-field"> Add </th>
+                    <th className="matrix-field matrix-sum-field"
+                        onClick={this.addRow}
+                    > Add </th>
                 </tr>
               </tbody>
             </table>
