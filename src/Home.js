@@ -41,8 +41,6 @@ class Home extends React.Component {
 
 
     checkInput(event){
-      console.log(event.target.value);
-      console.log(event.target.name);
       if(event.target.value == 0){
         this.setState({
           [event.target.name]: 1
